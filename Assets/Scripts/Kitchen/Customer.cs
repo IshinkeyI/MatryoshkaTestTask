@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using System.Collections.Generic;
-
+using System.Linq;
 using  CookingPrototype.Controllers;
 
 using JetBrains.Annotations;
@@ -71,6 +71,10 @@ namespace CookingPrototype.Kitchen {
 			_timer = 0f;
 		}
 
+		public bool IsThisOrderNeed(Order order) {
+			return _orders.Any(o => o == order);
+		}
+		
 		[UsedImplicitly]
 		public bool ServeOrder(Order order) {
 			var place = OrderPlaces.Find(x => x.CurOrder == order);
