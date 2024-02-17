@@ -1,5 +1,3 @@
-using System;
-
 using UnityEngine;
 
 using JetBrains.Annotations;
@@ -9,7 +7,8 @@ namespace CookingPrototype.Kitchen {
 	public sealed class FoodTrasher : MonoBehaviour {
 
 		FoodPlace _place = null;
-		float     _timer = 0f;
+		float     _timer = 0f; // Так и не понял зачем здесь _timer
+		int       _tapCount = 0;
 
 		void Start() {
 			_place = GetComponent<FoodPlace>();
@@ -21,7 +20,12 @@ namespace CookingPrototype.Kitchen {
 		/// </summary>
 		[UsedImplicitly]
 		public void TryTrashFood() {
-			throw new NotImplementedException("TryTrashFood: this feature is not implemented");
+			if (_place.IsFree || _place.CurFood.CurStatus != Food.FoodStatus.Overcooked ) return;
+
+			if ( ++_tapCount < 2 ) return;
+
+			_place.FreePlace();
+			_tapCount = 0;
 		}
 	}
 }
