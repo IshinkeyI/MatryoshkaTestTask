@@ -13,9 +13,6 @@ namespace CookingPrototype.Controllers {
 		
 		void Awake() {
 			Instance = this;
-		}
-
-		void Start() {
 			InitGame();
 		}
 
