@@ -8,7 +8,7 @@ using CookingPrototype.UI;
 using JetBrains.Annotations;
 
 namespace CookingPrototype.Controllers {
-	public sealed class GameplayController : MonoBehaviour {
+	public sealed class GameplayController : AController {
 		public static GameplayController Instance { get; private set; }
 
 		public GameObject TapBlock   = null;
@@ -43,12 +43,6 @@ namespace CookingPrototype.Controllers {
 			}
 		}
 
-		void Init() {
-			TotalOrdersServed = 0;
-			Time.timeScale = 1f;
-			TotalOrdersServedChanged?.Invoke();
-		}
-
 		public void CheckGameFinish() {
 			if ( CustomersController.Instance.IsComplete ) {
 				EndGame(TotalOrdersServed >= OrdersTarget);
@@ -63,6 +57,7 @@ namespace CookingPrototype.Controllers {
 			} else {
 				LoseWindow.Show();
 			}
+			GameManger.EndGame();
 		}
 
 		void HideWindows() {
@@ -82,6 +77,14 @@ namespace CookingPrototype.Controllers {
 			CheckGameFinish();
 			return true;
 		}
+
+		public override void Init() {		
+			TotalOrdersServed = 0;
+			Time.timeScale = 1f;
+			TotalOrdersServedChanged?.Invoke();
+		}
+
+		public override void OnUpdate() { }
 
 		public void Restart() {
 			Init();

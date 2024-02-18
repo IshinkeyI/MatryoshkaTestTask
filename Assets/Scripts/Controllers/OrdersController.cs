@@ -8,7 +8,7 @@ using UnityEngine;
 using  CookingPrototype.Kitchen;
 
 namespace CookingPrototype.Controllers {
-	public sealed class OrdersController : MonoBehaviour {
+	public sealed class OrdersController : AController {
 
 		static OrdersController _instance = null;
 
@@ -42,11 +42,7 @@ namespace CookingPrototype.Controllers {
 			}
 		}
 
-		void Start() {
-			Init();
-		}
-
-		void Init() {
+		public override void Init() {
 			if ( _isInit ) {
 				return;
 			}
@@ -63,6 +59,8 @@ namespace CookingPrototype.Controllers {
 			}
 			_isInit = true;
 		}
+
+		public override void OnUpdate() {}
 
 		Order ParseOrder(XmlNode node) {
 			var foods = new List<Order.OrderFood>();

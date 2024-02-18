@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 using CookingPrototype.Kitchen;
 
 namespace CookingPrototype.Controllers {
-	public class CustomersController : MonoBehaviour {
+	public class CustomersController : AController {
 
 		public static CustomersController Instance { get; private set; }
 
@@ -50,12 +50,8 @@ namespace CookingPrototype.Controllers {
 				Instance = null;
 			}
 		}
-
-		void Start() {
-			Init();
-		}
-
-		void Update() {
+		
+		public override void OnUpdate() {
 			if ( !HasFreePlaces ) {
 				return;
 			}
@@ -97,7 +93,7 @@ namespace CookingPrototype.Controllers {
 			return oc.Orders[Random.Range(0, oc.Orders.Count)];
 		}
 
-		public void Init() {
+		public override void Init() {
 			var totalOrders = 0;
 			_orderSets = new Stack<List<Order>>();
 			for ( var i = 0; i < CustomersTargetNumber; i++ ) {
